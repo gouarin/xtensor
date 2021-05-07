@@ -246,25 +246,19 @@ namespace xt
 
     template <class T, class A>
     inline uvector<T, A>::uvector(size_type count, const allocator_type& alloc)
-        : m_allocator(alloc), p_begin(nullptr), p_end(nullptr)
+        : m_allocator(alloc)
     {
-        if (count != 0)
-        {
-            p_begin = detail::safe_init_allocate(m_allocator, count);
-            p_end = p_begin + count;
-        }
+        p_begin = (count != 0)? detail::safe_init_allocate(m_allocator, count): nullptr;
+        p_end = p_begin + count;
     }
 
     template <class T, class A>
     inline uvector<T, A>::uvector(size_type count, const_reference value, const allocator_type& alloc)
-        : m_allocator(alloc), p_begin(nullptr), p_end(nullptr)
+        : m_allocator(alloc)
     {
-        if (count != 0)
-        {
-            p_begin = m_allocator.allocate(count);
-            p_end = p_begin + count;
-            std::uninitialized_fill(p_begin, p_end, value);
-        }
+        p_begin = (count != 0)? m_allocator.allocate(count): nullptr;
+        p_end = p_begin + count;
+        std::uninitialized_fill(p_begin, p_end, value);
     }
 
     template <class T, class A>
