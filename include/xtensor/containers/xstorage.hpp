@@ -757,7 +757,9 @@ namespace xt
         T* m_capacity = std::end(m_data);
 
         // stack allocated memory
-        alignas(alignment) T m_data[N > 0 ? N : 1];
+        // Value-initialized so that the slots past end() are never indeterminate:
+        // end() points into this buffer and is passed around as a const pointer.
+        alignas(alignment) T m_data[N > 0 ? N : 1]{};
 
         void grow(size_type min_capacity = 0);
         void destroy_range(T* begin, T* end);
