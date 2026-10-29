@@ -784,9 +784,9 @@ namespace xt
     {
         xtensor<double, 2> c = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}};
         auto xa = xt::sum(c, {0}, evaluation_strategy::immediate);
-        auto is_arr = [](const auto& c)
+        auto is_arr = [](const auto& shape)
         {
-            bool istrue = detail::is_array<std::decay_t<decltype(c)>>::value;
+            bool istrue = detail::is_array<std::decay_t<decltype(shape)>>::value;
             return istrue;
         };
 
@@ -826,9 +826,9 @@ namespace xt
         b.resize({3, 3, 3});
         std::iota(b.storage().begin(), b.storage().end(), 0);
 
-        auto is_arr = [](const auto& c)
+        auto is_arr = [](const auto& shape)
         {
-            bool istrue = detail::is_array<std::decay_t<decltype(c)>>::value;
+            bool istrue = detail::is_array<std::decay_t<decltype(shape)>>::value;
             return istrue;
         };
 
